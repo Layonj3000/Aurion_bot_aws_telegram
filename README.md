@@ -1,4 +1,6 @@
-# Avaliação Sprints 9 e 10 - Projeto Final - Programa de Bolsas Compass UOL / AWS - turma abril/2024
+<h1 align="center">Chatbot com Utilização de Ferramentas da AWS</h1>
+<h2 align="center"> <i>#ParaCegoVer - Descrição de Imagens para Cegos no Telegram</i></h2>
+ 
 
 Avaliação final do programa de bolsas Compass UOL para formação em machine learning para AWS.
 
