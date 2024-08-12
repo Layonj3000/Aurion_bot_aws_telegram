@@ -8,7 +8,7 @@ Avaliação final do programa de bolsas Compass UOL para formação em machine l
 ## 🌐 Sobre o Projeto
 
 ## 🏗️ Arquitetura Preliminar do Projeto
-![Imagem|Compass](assets/compass.png)
+![Imagem|Compass](assets/Arquitetura.jpg)
 
 ## 👨‍💻 Autores
 - [Gabriel Avelar](https://github.com/GabrielAvelarbr)
