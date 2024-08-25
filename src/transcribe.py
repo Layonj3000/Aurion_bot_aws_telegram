@@ -36,3 +36,13 @@ def audio_user(chat_id, file_id, bucket_name):
     
     return user_transcription
 
+def handle_audio_message(chat_id, file_id, bucket_name):
+    print("handle_audio_message(chat_id, file_id)")
+    file_path = get_telegram_file_path(file_id)
+    print("file path audio: ", file_path)
+    file_url = f"https://api.telegram.org/file/bot{os.getenv('tokenTelegram')}/{file_path}"
+    audio_data = download_audio(file_url)
+    s3_key = f'{chat_id}/audio.ogg'
+    s3.put_object(Bucket= bucket_name, Key=s3_key, Body=audio_data)
+
+    return s3_key
