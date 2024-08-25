@@ -128,3 +128,30 @@ def process_lex_response(chat_id, response):
         send_message(chat_id, "Escolha uma opção:", buttons)
 
     return intent_name
+
+def handle_non_text_message(chat_id, body):
+    print(" handle_non_text_message(chat_id, body):")
+    # Lidar com a imagem ou outro tipo de arquivo enviado
+    # if 'photo' in body['message']:
+
+    photo = body['message']['photo'][-1]  # Pega a imagem de maior resolução
+    file_id = photo['file_id']
+    tokenTelegram = os.getenv('tokenTelegram')
+    # Pegar o arquivo do Telegram
+    file_path = get_telegram_file_path(file_id)
+    file_url = f"https://api.telegram.org/file/bot{tokenTelegram}/{file_path}"
+        
+    # Baixar a imagem
+    image_data = download_image(file_url)
+    
+    # Armazenar no S3
+    store_image_in_s3(chat_id, image_data)
+    response_rekognition = detect_labels(s3_bucket_name,chat_id)
+        
+    bedrock = generate_image_description(response_rekognition)
+    print("lambda bedrock ", bedrock)
+    send_message(chat_id,response_rekognition )
+    send_message(chat_id, bedrock)
+    return send_message(chat_id, "Imagem armazenada com sucesso!")
+
+    # return send_message(chat_id, "Envie uma imagem para armazenar.")
