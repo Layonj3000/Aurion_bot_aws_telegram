@@ -166,3 +166,11 @@ def download_image(url):
     # Baixar a imagem do URL
     with urllib.request.urlopen(url) as response:
         return response.read()
+
+def store_image_in_s3(chat_id, image_data):
+    print("tore_image_in_s3(chat_id, image_data)")
+    # Armazenar a imagem no S3
+    s3 = boto3.client('s3')
+    s3.put_object(Bucket=s3_bucket_name, Key=f'{chat_id}/image.jpg', Body=image_data)
+    # update_user_state(chat_id, 'AWAITING_TEXT')  # Resetar estado para o próximo passo
+
