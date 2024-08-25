@@ -80,3 +80,28 @@ def lambda_handler(event, context):
         'body': json.dumps('Success')
     }
     
+def call_lex(chat_id, message):
+    try:
+        botId = os.getenv('botId')
+        botAliasId = os.getenv('botAliasId')
+        
+        # Solicitação ao Lex V2
+        response = lex_client.recognize_text(
+            botId= botId,  # Substitua pelo ID do seu bot
+            botAliasId= botAliasId,  # Substitua pelo ID do alias do seu bot
+            localeId= 'pt_BR',  # Substitua pela localidade apropriada
+            sessionId= str(chat_id),
+            text= str(message)
+        )
+        logger.info(f"Lex response: {response}")
+        
+        # reply = response.get('messages', [{}])[0].get('content', 'Desculpe, não entendi isso.')
+        
+        return response
+
+    except Exception as e:
+        logger.error(f"Error processing message: {str(e)}")
+        return {
+            'statusCode': 400,
+            'body': json.dumps('error')
+            }
