@@ -46,3 +46,18 @@ def handle_audio_message(chat_id, file_id, bucket_name):
     s3.put_object(Bucket= bucket_name, Key=s3_key, Body=audio_data)
 
     return s3_key
+
+def generate_unique_job_name(chat_id, base_name="transcription-job"):
+    return f"{base_name}-{chat_id}-{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+
+def start_transcription(chat_id, s3_key, bucket_name):
+    job_name = generate_unique_job_name(chat_id)
+    transcribe.start_transcription_job(
+        TranscriptionJobName=job_name,
+        Media={'MediaFileUri': f's3://{bucket_name}/{s3_key}'},
+        MediaFormat='ogg',
+        LanguageCode='pt-BR',
+        OutputBucketName= bucket_name
+    )
+
+    return job_name
