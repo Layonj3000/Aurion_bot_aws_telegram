@@ -61,3 +61,15 @@ def start_transcription(chat_id, s3_key, bucket_name):
     )
 
     return job_name
+
+def check_transcription_status(job_name):
+    print("def check_transcription_status(job_name):")
+    while True:
+        result = transcribe.get_transcription_job(TranscriptionJobName=job_name)
+        status = result['TranscriptionJob']['TranscriptionJobStatus']
+        if status == 'COMPLETED':
+            return result['TranscriptionJob']['Transcript']['TranscriptFileUri']
+        elif status == 'FAILED':
+            print("failed")
+            raise Exception("Transcription failed")
+        time.sleep(5)
