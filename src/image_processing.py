@@ -16,5 +16,5 @@ def download_image(url):
 
 def store_image_in_s3(chat_id, image_data):
     s3 = boto3.client('s3')
-    s3_bucket_name = 'sprint8-imgs'
+    s3_bucket_name = os.getenv('bucketName')
     s3.put_object(Bucket=s3_bucket_name, Key=f'{chat_id}/image.jpg', Body=image_data)
