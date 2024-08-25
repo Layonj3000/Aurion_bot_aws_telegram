@@ -152,26 +152,6 @@ def handle_non_text_message(chat_id, body):
     send_message(chat_id, bedrock)
     return send_message(chat_id, "Imagem armazenada com sucesso!")
 
-def get_telegram_file_path(file_id):
-    print("def get_telegram_file_path(file_id):")
-    # Obter o caminho do arquivo no Telegram
-    tokenTelegram = os.getenv('tokenTelegram')
-    url = f"https://api.telegram.org/bot{tokenTelegram}/getFile?file_id={file_id}"
-    with urllib.request.urlopen(url) as response:
-        data = json.load(response)
-        return data['result']['file_path']
-    
-def download_image(url):
-    print("def download_image(url):")
-    # Baixar a imagem do URL
-    with urllib.request.urlopen(url) as response:
-        return response.read()
-
-def store_image_in_s3(chat_id, image_data):
-    print("tore_image_in_s3(chat_id, image_data)")
-    # Armazenar a imagem no S3
-    s3 = boto3.client('s3')
-    s3.put_object(Bucket=s3_bucket_name, Key=f'{chat_id}/image.jpg', Body=image_data)
 
 def send_message(chat_id, text, buttons=None):
     print("def send_message(chat_id, text, buttons=None)")
