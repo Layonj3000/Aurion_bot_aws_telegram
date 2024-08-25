@@ -27,4 +27,12 @@ def download_audio(file_url):
             raise Exception(f"Failed to download audio file: {response.status}")
         
         
+def audio_user(chat_id, file_id, bucket_name):
+
+    s3_key = handle_audio_message(chat_id, file_id, bucket_name)
+    job_name = start_transcription(chat_id, s3_key, bucket_name)
+    status_transcribe = check_transcription_status(job_name)
+    user_transcription = transcription_to_user(chat_id, status_transcribe)
+    
+    return user_transcription
 
