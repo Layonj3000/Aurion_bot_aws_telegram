@@ -160,3 +160,9 @@ def get_telegram_file_path(file_id):
     with urllib.request.urlopen(url) as response:
         data = json.load(response)
         return data['result']['file_path']
+    
+def download_image(url):
+    print("def download_image(url):")
+    # Baixar a imagem do URL
+    with urllib.request.urlopen(url) as response:
+        return response.read()
