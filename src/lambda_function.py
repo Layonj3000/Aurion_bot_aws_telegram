@@ -105,3 +105,26 @@ def call_lex(chat_id, message):
             'statusCode': 400,
             'body': json.dumps('error')
             }
+
+def process_lex_response(chat_id, response):
+    intent_name = response['sessionState']['intent']['name']
+
+    logger.info("procces_lex_response, intent name {intent_name}")
+
+    reply = response.get('messages', [{}])[0].get('content', 'Desculpe, não entendi isso.')
+            
+    send_message(chat_id, reply)
+    
+    if intent_name == 'Saudacoes':
+        logger.info("Intent Saudacoes reconhecida.")
+        
+        # Crie um menu com botões
+        buttons = [
+            [{'text': 'Analisar Imagem🔎', 'callback_data': 'analisar_imagem'}],
+            [{'text': 'Opção 2', 'callback_data': 'opcao_2'}],
+            [{'text': 'Opção 3', 'callback_data': 'opcao_3'}]
+        ]
+        
+        send_message(chat_id, "Escolha uma opção:", buttons)
+
+    return intent_name
