@@ -18,3 +18,13 @@ def get_telegram_file_path(file_id):
         data = json.load(response)
         return data['result']['file_path']
 
+
+def download_audio(file_url):
+    with urllib.request.urlopen(file_url) as response:
+        if response.status == 200:
+            return response.read()
+        else:
+            raise Exception(f"Failed to download audio file: {response.status}")
+        
+        
+
