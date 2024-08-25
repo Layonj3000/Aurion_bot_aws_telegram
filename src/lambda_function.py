@@ -3,7 +3,7 @@ import logging
 import os
 import urllib.request 
 
-import boto3
+from lex_interaction import call_lex, process_lex_response
 from bedrock import generate_image_description
 from rekognition import detect_labels
 from transcribe import audio_user
@@ -80,54 +80,6 @@ def lambda_handler(event, context):
         'body': json.dumps('Success')
     }
     
-def call_lex(chat_id, message):
-    try:
-        botId = os.getenv('botId')
-        botAliasId = os.getenv('botAliasId')
-        
-        # Solicitação ao Lex V2
-        response = lex_client.recognize_text(
-            botId= botId,  # Substitua pelo ID do seu bot
-            botAliasId= botAliasId,  # Substitua pelo ID do alias do seu bot
-            localeId= 'pt_BR',  # Substitua pela localidade apropriada
-            sessionId= str(chat_id),
-            text= str(message)
-        )
-        logger.info(f"Lex response: {response}")
-        
-        # reply = response.get('messages', [{}])[0].get('content', 'Desculpe, não entendi isso.')
-        
-        return response
-
-    except Exception as e:
-        logger.error(f"Error processing message: {str(e)}")
-        return {
-            'statusCode': 400,
-            'body': json.dumps('error')
-            }
-
-def process_lex_response(chat_id, response):
-    intent_name = response['sessionState']['intent']['name']
-
-    logger.info("procces_lex_response, intent name {intent_name}")
-
-    reply = response.get('messages', [{}])[0].get('content', 'Desculpe, não entendi isso.')
-            
-    send_message(chat_id, reply)
-    
-    if intent_name == 'Saudacoes':
-        logger.info("Intent Saudacoes reconhecida.")
-        
-        # Crie um menu com botões
-        buttons = [
-            [{'text': 'Analisar Imagem🔎', 'callback_data': 'analisar_imagem'}],
-            [{'text': 'Opção 2', 'callback_data': 'opcao_2'}],
-            [{'text': 'Opção 3', 'callback_data': 'opcao_3'}]
-        ]
-        
-        send_message(chat_id, "Escolha uma opção:", buttons)
-
-    return intent_name
 
 def handle_non_text_message(chat_id, body):
     print(" handle_non_text_message(chat_id, body):")
