@@ -73,3 +73,16 @@ def check_transcription_status(job_name):
             print("failed")
             raise Exception("Transcription failed")
         time.sleep(5)
+        
+def transcription_to_user(chat_id, transcript_url):
+    print("def send_transcription_to_user(chat_id, transcript_url):")
+    try:
+        # Fazendo a requisição para obter os dados de transcrição
+        with urllib.request.urlopen(transcript_url) as response:
+            transcript_data = json.load(response)
+            transcript_text = transcript_data['results']['transcripts'][0]['transcript']
+            print("transcript_text:", transcript_text)
+            return transcript_text
+    except Exception as e:
+        print(f"Error retrieving transcription: {str(e)}")
+        return None
