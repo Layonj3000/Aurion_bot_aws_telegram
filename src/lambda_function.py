@@ -131,8 +131,6 @@ def process_lex_response(chat_id, response):
 
 def handle_non_text_message(chat_id, body):
     print(" handle_non_text_message(chat_id, body):")
-    # Lidar com a imagem ou outro tipo de arquivo enviado
-    # if 'photo' in body['message']:
 
     photo = body['message']['photo'][-1]  # Pega a imagem de maior resolução
     file_id = photo['file_id']
@@ -153,5 +151,3 @@ def handle_non_text_message(chat_id, body):
     send_message(chat_id,response_rekognition )
     send_message(chat_id, bedrock)
     return send_message(chat_id, "Imagem armazenada com sucesso!")
-
-    # return send_message(chat_id, "Envie uma imagem para armazenar.")
