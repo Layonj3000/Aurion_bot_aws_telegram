@@ -173,4 +173,43 @@ def store_image_in_s3(chat_id, image_data):
     s3 = boto3.client('s3')
     s3.put_object(Bucket=s3_bucket_name, Key=f'{chat_id}/image.jpg', Body=image_data)
 
+def send_message(chat_id, text, buttons=None):
+    print("def send_message(chat_id, text, buttons=None)")
+    url = f"https://api.telegram.org/bot{os.environ['tokenTelegram']}/sendMessage"
+    
+    payload = {
+        'chat_id': chat_id,
+        'text': text,
+        'parse_mode': 'HTML' 
+    }
+    
+    if buttons:
+        payload['reply_markup'] = json.dumps({
+            'inline_keyboard': buttons
+        })
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    try:
+        req = urllib.request.Request(url, data=json.dumps(payload).encode('utf-8'), headers=headers, method='POST')
+        with urllib.request.urlopen(req) as response:
+            response_data = response.read().decode('utf-8') 
+            logger.info(f"Telegram API response: {response_data}")
+            return json.loads(response_data)
+    
+    except urllib.error.HTTPError as e:
+        logger.error(f"HTTPError: {e.code} {e.reason}")
+        return {'error': f'HTTPError: {e.code} {e.reason}'}
+    
+    except urllib.error.URLError as e:
+        logger.error(f"URLError: {e.reason}")
+        return {'error': f'URLError: {e.reason}'}
+    
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return {'error': f'Unexpected error: {str(e)}'}
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Success')
+    }
 
