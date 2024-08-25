@@ -151,3 +151,12 @@ def handle_non_text_message(chat_id, body):
     send_message(chat_id,response_rekognition )
     send_message(chat_id, bedrock)
     return send_message(chat_id, "Imagem armazenada com sucesso!")
+
+def get_telegram_file_path(file_id):
+    print("def get_telegram_file_path(file_id):")
+    # Obter o caminho do arquivo no Telegram
+    tokenTelegram = os.getenv('tokenTelegram')
+    url = f"https://api.telegram.org/bot{tokenTelegram}/getFile?file_id={file_id}"
+    with urllib.request.urlopen(url) as response:
+        data = json.load(response)
+        return data['result']['file_path']
