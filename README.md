@@ -1,9 +1,7 @@
-<h1 align="center">Chatbot com Utilização de Ferramentas da AWS</h1>
-<h2 align="center"> <i>#ParaCegoVer - Descrição de Imagens para Cegos no Telegram</i></h2>
+<h1 align="center">Bot para auxiliar pessoas com deficiência visual </h1>
+<h2 align="center"> <i>Aurion</i></h2>
 
-Avaliação final do programa de bolsas Compass UOL para formação em machine learning para AWS.
-
----
+<h4 align="center"> <i>Avaliação final do programa de bolsas Compass UOL para formação em machine learning para AWS.</i></h4>
 
 ## 🌐 Sobre o Projeto
 <p align="justify"> 
@@ -16,6 +14,26 @@ O bot estará disponível publicamente no Telegram, onde os usuários poderão i
 
 ## 🏗️ Arquitetura Preliminar do Projeto
 ![Imagem|Compass](assets/Arquitetura.jpg)
+
+## 🚀 Como utilizar
+No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
+
+## 📂 Estrutura das Pastas
+
+
+## 💻 Tecnologias
+- AWS Bedrock
+- AWS Rekognition
+- AWS Transcribe
+- AWS S3
+- AWS Lex
+- AWS Textract
+- API Gateway
+- Telegram
+- Python
+
+## ❌ Dificuldades
+Tivemos dificuldades principalmente em analisar imagens com o AWS Rekognition, devido à labels inconsistentes que geravam resultados incorretos no AWS Bedrock.
 
 ## 👨‍💻 Autores
 <div>
