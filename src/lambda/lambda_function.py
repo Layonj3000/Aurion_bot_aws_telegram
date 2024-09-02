@@ -2,11 +2,10 @@ import json
 import logging
 
 from dynamo import delete_user, get_user_state, update_user_state
-from textract import extract_text_from_image
-
 from lex_interaction import call_lex, process_lex_response
 from telegram_interaction import (handle_non_text_message, save_image,
                                   send_message)
+from textract import extract_text_from_image
 from transcribe import audio_user
 
 logger = logging.getLogger()
@@ -107,9 +106,14 @@ def lambda_handler(event, context):
                 chat_id = body['message']['chat']['id']
                 file_id = body['message']['voice']['file_id']
                 audio_text = audio_user(chat_id, file_id)
-                send_message(chat_id, audio_text)
-                response = call_lex(chat_id,audio_text)
-                process_lex_response(chat_id,response)
+                if not audio_text.strip():
+                    send_message(chat_id, "O áudio enviado está vazio ou não pôde ser entendido. Por favor, envie um áudio claro.")
+                else:
+                    # Caso o áudio tenha conteúdo, continue com a chamada ao Lex
+                    send_message(chat_id, audio_text)
+                    response = call_lex(chat_id,audio_text)
+                    process_lex_response(chat_id,response)
+                
                 
             else:
                 logger.error("Unrecognized message format!")
