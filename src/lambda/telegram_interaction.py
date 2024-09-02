@@ -25,6 +25,8 @@ def save_image(chat_id, body):
 
 def handle_non_text_message(chat_id):
     
+    send_message(chat_id, "Isso pode demorar alguns intantes...")
+    send_message(chat_id, "🔎")
     response_rekognition = detect_labels(s3_bucket_name, chat_id)
     bedrock = generate_image_description(response_rekognition)
     send_message(chat_id, response_rekognition)
