@@ -14,3 +14,14 @@ def update_user_state(user_id, state):
             'state': {'S': state}
         }
     )
+
+def get_user_state(user_id):
+    response = dynamodb.get_item(
+        TableName=table_name,
+        Key={'user_id': {'S': str(user_id)}}
+    )
+    if 'Item' in response:
+        return response['Item']['state']['S']
+    return None
+    
+    
