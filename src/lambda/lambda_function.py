@@ -1,7 +1,11 @@
 import json
 import logging
-from telegram_interaction import handle_non_text_message, send_message
+
+from dynamo import delete_user, get_user_state, update_user_state
+from textract import extract_text_from_image
+
 from lex_interaction import call_lex, process_lex_response
+from telegram_interaction import handle_non_text_message, send_message
 from transcribe import audio_user
 
 logger = logging.getLogger()
@@ -14,13 +18,43 @@ def lambda_handler(event, context):
             body = json.loads(event['body'])
 
             if 'callback_query' in body:
+                print("if 'callback_query' in body:")
                 callback_data = body['callback_query']['data']
+                print("callback_data",callback_data)
                 chat_id = body['callback_query']['message']['chat']['id']
                 message = callback_data
+                print("message = ", message)
                 
-                send_message(chat_id, message)
-                response_lex = call_lex(chat_id, message)
-                process_lex_response(chat_id, response_lex)
+                if message == 'Analisar Imagem':
+                    print("if message is 'Analisar Imagem':")
+                    # update_user_state(chat_id, 'ANALISAR')
+                    handle_non_text_message(chat_id)
+                    # delete_user(chat_id)
+                elif message == 'Rotulo':
+                    print("if message is 'rotulo':")
+                    # update_user_state(chat_id, 'ROTULO')
+                    send_message(chat_id, "É pra já! aqui está os rótulos:")
+                    rotulo = extract_text_from_image(chat_id)
+                    logger.info(f"Rotulo:  {rotulo}")
+                    # delete_user(chat_id)
+                    send_message(chat_id, rotulo)
+                    
+                elif message == 'Rotulo Menu':
+                    update_user_state(chat_id, 'ROTULO')
+                    send_message(chat_id, message)
+                    send_message(chat_id, "Desculpa, ainda nao tenho essa intent")
+                    send_message(chat_id, "mas nao tem problema️")
+                    send_message(chat_id,"Manda a foto")
+                    
+                elif message == 'Analisar Imagem Menu':
+                    update_user_state(chat_id, 'ANALISAR')
+                    send_message(chat_id, message)
+                    response_lex = call_lex(chat_id, message)
+                    process_lex_response(chat_id, response_lex)
+                elif message == 'Funcionalidades':
+                    send_message(chat_id, message)
+                    response_lex = call_lex(chat_id, message)
+                    process_lex_response(chat_id, response_lex)
 
             elif 'photo' in body['message']:
                 chat_id = body['message']['chat']['id']
