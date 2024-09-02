@@ -108,6 +108,9 @@ def lambda_handler(event, context):
                 file_id = body['message']['voice']['file_id']
                 audio_text = audio_user(chat_id, file_id)
                 send_message(chat_id, audio_text)
+                response = call_lex(chat_id,audio_text)
+                process_lex_response(chat_id,response)
+                
             else:
                 logger.error("Unrecognized message format!")
                 return {'statusCode': 400, 'body': json.dumps('Bad Request: Unrecognized message format.')}
