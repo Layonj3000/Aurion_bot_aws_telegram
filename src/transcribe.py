@@ -8,6 +8,8 @@ import boto3
 
 transcribe = boto3.client('transcribe')
 s3 = boto3.client('s3')
+bucket_name = os.getenv("bucketName")
+
 
 def get_telegram_file_path(file_id):
     print("def get_telegram_file_path(file_id):")
@@ -27,16 +29,16 @@ def download_audio(file_url):
             raise Exception(f"Failed to download audio file: {response.status}")
         
         
-def audio_user(chat_id, file_id, bucket_name):
+def audio_user(chat_id, file_id):
 
-    s3_key = handle_audio_message(chat_id, file_id, bucket_name)
-    job_name = start_transcription(chat_id, s3_key, bucket_name)
+    s3_key = handle_audio_message(chat_id, file_id)
+    job_name = start_transcription(chat_id, s3_key)
     status_transcribe = check_transcription_status(job_name)
     user_transcription = transcription_to_user(chat_id, status_transcribe)
     
     return user_transcription
 
-def handle_audio_message(chat_id, file_id, bucket_name):
+def handle_audio_message(chat_id, file_id):
     print("handle_audio_message(chat_id, file_id)")
     file_path = get_telegram_file_path(file_id)
     print("file path audio: ", file_path)
@@ -50,7 +52,7 @@ def handle_audio_message(chat_id, file_id, bucket_name):
 def generate_unique_job_name(chat_id, base_name="transcription-job"):
     return f"{base_name}-{chat_id}-{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
 
-def start_transcription(chat_id, s3_key, bucket_name):
+def start_transcription(chat_id, s3_key):
     job_name = generate_unique_job_name(chat_id)
     transcribe.start_transcription_job(
         TranscriptionJobName=job_name,
