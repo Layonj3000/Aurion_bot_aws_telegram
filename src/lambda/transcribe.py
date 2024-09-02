@@ -31,8 +31,6 @@ def download_audio(file_url):
         
 def audio_user(chat_id, file_id):
 
-    send_message(chat_id, "Isso pode demorar alguns intantes...")
-    send_message(chat_id, "🔎")
     s3_key = handle_audio_message(chat_id, file_id)
     job_name = start_transcription(chat_id, s3_key)
     status_transcribe = check_transcription_status(job_name)

@@ -33,13 +33,18 @@ def lambda_handler(event, context):
                 elif message == 'Rotulo':
                     print("if message is 'rotulo':")
                     # update_user_state(chat_id, 'ROTULO')
-                    send_message(chat_id, "É pra já! aqui está os rótulos:")
+                    send_message(chat_id, "Isso pode demorar alguns intantes...")
+                    send_message(chat_id, "🔎")
                     rotulo = extract_text_from_image(chat_id)
+                    
+    
+                    
                     
                     if not rotulo.strip():
                         send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
                     else:
                         logger.info(f"Rotulo:  {rotulo}")
+                        send_message(chat_id, rotulo)
                         # delete_user(chat_id)
                         # send_message(chat_id, rotulo)
                     
@@ -81,12 +86,15 @@ def lambda_handler(event, context):
                     logger.info(f"Usuário {chat_id} encontrado no banco de dados com estado: {user_state}")
                     
                     if user_state == 'ROTULO':
+                        send_message(chat_id, "Isso pode demorar alguns intantes...")
+                        send_message(chat_id, "🔎")
                         rotulo = extract_text_from_image(chat_id)
                         if not rotulo.strip():
                             send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
                         else:
                             logger.info(f"Rotulo:  {rotulo}")
                             # delete_user(chat_id)
+                            
                             send_message(chat_id, rotulo)
                             delete_user(chat_id)
                        
