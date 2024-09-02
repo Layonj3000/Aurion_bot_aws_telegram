@@ -41,23 +41,21 @@ def lambda_handler(event, context):
                     else:
                         logger.info(f"Rotulo:  {rotulo}")
                         # delete_user(chat_id)
-                        send_message(chat_id, rotulo)
-                    
+                        # send_message(chat_id, rotulo)
                     
                 elif message == 'Rotulo Menu':
                     update_user_state(chat_id, 'ROTULO')
-                    send_message(chat_id, message)
-                    send_message(chat_id, "Desculpa, ainda nao tenho essa intent")
-                    send_message(chat_id, "mas nao tem problema️")
-                    send_message(chat_id,"Manda a foto")
+                    #send_message(chat_id, message)
+                    response_lex = call_lex(chat_id, message)
+                    process_lex_response(chat_id, response_lex)
                     
                 elif message == 'Analisar Imagem Menu':
                     update_user_state(chat_id, 'ANALISAR')
-                    send_message(chat_id, message)
+                    #send_message(chat_id, message)
                     response_lex = call_lex(chat_id, message)
                     process_lex_response(chat_id, response_lex)
                 elif message == 'Funcionalidades':
-                    send_message(chat_id, message)
+                    #send_message(chat_id, message)
                     response_lex = call_lex(chat_id, message)
                     process_lex_response(chat_id, response_lex)
 
@@ -92,6 +90,7 @@ def lambda_handler(event, context):
                             send_message(chat_id, rotulo)
                             delete_user(chat_id)
                        
+                    
                     elif user_state == 'ANALISAR':
                         
                         handle_non_text_message(chat_id)
@@ -122,10 +121,11 @@ def lambda_handler(event, context):
                     response = call_lex(chat_id,audio_text)
                     process_lex_response(chat_id,response)
                 
-                
             else:
                 logger.error("Unrecognized message format!")
-                return {'statusCode': 400, 'body': json.dumps('Bad Request: Unrecognized message format.')}
+                chat_id = body['message']['chat']['id']
+                send_message(chat_id,"Desculpe, mas não suporto esse tipo de entrada")
+                return {'statusCode': 200, 'body': json.dumps('Bad Request: Unrecognized message format.')}
 
     except Exception as e:
         logger.error(f"Error processing message in lambda_handler: {str(e)}")
