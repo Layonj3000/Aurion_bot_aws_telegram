@@ -35,9 +35,14 @@ def lambda_handler(event, context):
                     # update_user_state(chat_id, 'ROTULO')
                     send_message(chat_id, "É pra já! aqui está os rótulos:")
                     rotulo = extract_text_from_image(chat_id)
-                    logger.info(f"Rotulo:  {rotulo}")
-                    # delete_user(chat_id)
-                    send_message(chat_id, rotulo)
+                    
+                    if not rotulo.strip():
+                        send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
+                    else:
+                        logger.info(f"Rotulo:  {rotulo}")
+                        # delete_user(chat_id)
+                        send_message(chat_id, rotulo)
+                    
                     
                 elif message == 'Rotulo Menu':
                     update_user_state(chat_id, 'ROTULO')
@@ -78,12 +83,15 @@ def lambda_handler(event, context):
                     logger.info(f"Usuário {chat_id} encontrado no banco de dados com estado: {user_state}")
                     
                     if user_state == 'ROTULO':
-                        
                         rotulo = extract_text_from_image(chat_id)
-                        logger.info(f"Rotulo:  {rotulo}")
-                        delete_user(chat_id)
-                        send_message(chat_id, rotulo)
-                    
+                        if not rotulo.strip():
+                            send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
+                        else:
+                            logger.info(f"Rotulo:  {rotulo}")
+                            # delete_user(chat_id)
+                            send_message(chat_id, rotulo)
+                            delete_user(chat_id)
+                       
                     elif user_state == 'ANALISAR':
                         
                         handle_non_text_message(chat_id)
