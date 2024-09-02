@@ -18,9 +18,14 @@ O bot estará disponível publicamente no Telegram, onde os usuários poderão i
 ![Imagem|Compass](assets/Arquitetura.jpg)
 
 ## 👨‍💻 Autores
-- [Gabriel Avelar](https://github.com/GabrielAvelarbr)
-- [José Neto](https://github.com/JoseJaan)
-- [Layon Reis](https://github.com/Layonj300)
-- [Luiz Fillipe Morais](https://github.com/LuizFillipe1)
-- [Pamela Pavan](https://github.com/PamelaPavan)
-
+<div>
+  <table style="margin: 0 auto;">
+    <tr>
+      <td><a href="https://github.com/GabrielAvelarbr"><img loading="lazy" src="https://avatars.githubusercontent.com/u/117688731?v=4" width="115"><br><sub>Gabriel Avelar</sub></a></td>
+      <td><a href="https://github.com/JoseJaan"><img loading="lazy" src="https://avatars.githubusercontent.com/u/120669342?v=4" width="115"><br><sub>José Neto</sub></a></td>
+      <td><a href="https://github.com/Layonj300"><img loading="lazy" src="https://avatars.githubusercontent.com/u/106559843?v=4" width="115"><br><sub>Layon Reis</sub></a></td>
+      <td><a href="https://github.com/LuizFillipe1"><img loading="lazy" src="https://avatars.githubusercontent.com/u/78454639?v=4" width="115"><br><sub>Luiz Fillipe</sub></a></td>
+      <td><a href="https://github.com/PamelaPavan"><img loading="lazy" src="https://avatars.githubusercontent.com/u/97994995?v=4" width="115"><br><sub>Pamela Pavan</sub></a></td>
+    </tr>
+  </table>
+</div>
