@@ -1,6 +1,9 @@
-import os
-import boto3
 import logging
+import os
+
+import boto3
+
+from dynamo import delete_user, get_user_state, update_user_state
 from telegram_interaction import send_message
 
 logger = logging.getLogger()
@@ -36,8 +39,14 @@ def process_lex_response(chat_id, response):
         logger.info("Intent Saudacoes recognized.")
         buttons = [
             [{'text': 'Como Funciona?', 'callback_data': 'Funcionalidades'}],
-            [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem'}]
+            [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem Menu'}],
+            [{'text': 'Procurar Rótulo', 'callback_data': 'Rotulo Menu'}]
         ]
         send_message(chat_id, "Escolha uma opção:", buttons)
 
+    if intent_name == 'lerTexto':
+        update_user_state(chat_id, 'ROTULO')
+    if intent_name == 'insereImagem':
+        update_user_state(chat_id, 'ANALISAR')
     return intent_name
+ 
