@@ -44,9 +44,8 @@ def process_lex_response(chat_id, response):
         ]
         send_message(chat_id, "Escolha uma opção:", buttons)
 
-    if intent_name == 'lerTexto':
+    if intent_name == 'AnalisarTexto':
         update_user_state(chat_id, 'ROTULO')
-    if intent_name == 'insereImagem':
+    if intent_name == 'AnalisarImagem':
         update_user_state(chat_id, 'ANALISAR')
     return intent_name
- 
