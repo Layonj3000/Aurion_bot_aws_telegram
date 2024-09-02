@@ -1,15 +1,18 @@
-import os
 import json
-import urllib.request
 import logging
-from image_processing import get_telegram_file_path, download_image, store_image_in_s3
-from rekognition import detect_labels
+import os
+import urllib.request
+
 from bedrock import generate_image_description
+from image_processing import (download_image, get_telegram_file_path,
+                              store_image_in_s3)
+from rekognition import detect_labels
 
 logger = logging.getLogger()
 s3_bucket_name = os.getenv('bucketName')
 
-def handle_non_text_message(chat_id, body):
+
+def save_image(chat_id, body):
     photo = body['message']['photo'][-1]
     file_id = photo['file_id']
     tokenTelegram = os.getenv('tokenTelegram')
@@ -19,9 +22,11 @@ def handle_non_text_message(chat_id, body):
     image_data = download_image(file_url)
 
     store_image_in_s3(chat_id, image_data)
+
+def handle_non_text_message(chat_id):
+    
     response_rekognition = detect_labels(s3_bucket_name, chat_id)
     bedrock = generate_image_description(response_rekognition)
-
     send_message(chat_id, response_rekognition)
     send_message(chat_id, bedrock)
 
@@ -52,8 +57,3 @@ def send_message(chat_id, text, buttons=None):
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
         return {'error': f'Unexpected error: {str(e)}'}
-
-
-
-
-
