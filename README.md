@@ -3,6 +3,8 @@
 
 <h4 align="center"> <i>Avaliação final do programa de bolsas Compass UOL para formação em machine learning para AWS.</i></h4>
 
+![Imagem|Compass](assets/banner.png)
+
 ## 🌐 Sobre o Projeto
 <p align="justify"> 
 Este bot será desenvolvido com o objetivo oferecer uma ferramenta inclusiva para pessoas cegas, inspirada no movimento <a href="https://mwpt.com.br/criadora-do-projeto-pracegover-incentiva-descricao-de-imagens-na-web/">#ParaCegoVer</a>, que incentiva a descrição de imagens na web. A iniciativa, criada por uma defensora da acessibilidade visual, tem como propósito tornar o conteúdo digital mais acessível para pessoas com deficiência visual, promovendo a inclusão e a equidade. Integrado ao Telegram, o bot permitirá que os usuários enviem imagens para receber descrições detalhadas em áudio ou texto.
@@ -13,7 +15,7 @@ O bot estará disponível publicamente no Telegram, onde os usuários poderão i
 </p>
 
 ## 🏗️ Arquitetura Preliminar do Projeto
-![Imagem|Compass](assets/Arquitetura.jpg)
+![Imagem|Compass](assets/Arquitetura.png)
 
 ## 🚀 Como utilizar
 No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
