@@ -1,3 +1,4 @@
+
 import json
 import logging
 
@@ -38,7 +39,8 @@ def lambda_handler(event, context):
                     rotulo = extract_text_from_image(chat_id)
                     
                     if not rotulo.strip():
-                        send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
+                        send_message(chat_id, "Nenhum texto foi encontrado na imagem.")
+                        delete_user(chat_id)
                     else:
                         logger.info(f"Rotulo:  {rotulo}")
                         send_message(chat_id, rotulo)
@@ -91,7 +93,8 @@ def lambda_handler(event, context):
                         send_message(chat_id, "🔎")
                         rotulo = extract_text_from_image(chat_id)
                         if not rotulo.strip():
-                            send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
+                            send_message(chat_id, "Nenhum texto foi encontrado na imagem.")
+                            delete_user(chat_id)
                         else:
                             logger.info(f"Rotulo:  {rotulo}")
                             # delete_user(chat_id)
@@ -105,12 +108,12 @@ def lambda_handler(event, context):
                         handle_non_text_message(chat_id)
                         delete_user(chat_id)
                         
-                    else:
-                        buttons = [
-                            [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem'}],
-                            [{'text': 'Ler Rótulo de Imagem', 'callback_data': 'Rotulo'}]
-                        ]
-                        send_message(chat_id, "Escolha uma opção:", buttons)
+                    # else:
+                    #     buttons = [
+                    #         [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem'}],
+                    #         [{'text': 'Ler Rótulo de Imagem', 'callback_data': 'Rotulo'}]
+                    #     ]
+                    #     send_message(chat_id, "Escolha uma opção:", buttons)
 
             elif 'text' in body['message']:
                 chat_id = body['message']['chat']['id']
@@ -118,7 +121,8 @@ def lambda_handler(event, context):
                 response_lex = call_lex(chat_id, message)
                 process_lex_response(chat_id, response_lex)
 
-            elif 'voice' in body['message']:        
+            elif 'voice' in body['message']:
+                
                 chat_id = body['message']['chat']['id']
                 file_id = body['message']['voice']['file_id']
                 send_message(chat_id, "Analisando áudio...")
