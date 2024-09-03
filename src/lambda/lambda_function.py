@@ -108,13 +108,6 @@ def lambda_handler(event, context):
                         handle_non_text_message(chat_id)
                         delete_user(chat_id)
                         
-                    # else:
-                    #     buttons = [
-                    #         [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem'}],
-                    #         [{'text': 'Ler Rótulo de Imagem', 'callback_data': 'Rotulo'}]
-                    #     ]
-                    #     send_message(chat_id, "Escolha uma opção:", buttons)
-
             elif 'text' in body['message']:
                 chat_id = body['message']['chat']['id']
                 message = body['message']['text']
