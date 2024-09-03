@@ -36,7 +36,7 @@ def lambda_handler(event, context):
                     send_message(chat_id, "Isso pode demorar alguns intantes...")
                     send_message(chat_id, "🔎")
                     rotulo = extract_text_from_image(chat_id)
-            
+                    
                     if not rotulo.strip():
                         send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
                     else:
@@ -75,12 +75,12 @@ def lambda_handler(event, context):
                 if user_state is None:
                     # Se o usuário não existir, perguntar o que ele deseja fazer
                     logger.info(f"Usuário {chat_id} não encontrado no banco de dados.")
-                    send_message(chat_id, "Olá! Como posso te ajudar hoje? Por favor, me diga o que deseja fazer.")
+                   
                     buttons = [
-                        [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem'}],
-                        [{'text': 'Ler Rótulo de Imagem', 'callback_data': 'Rotulo'}]
+                        [{'text': 'Gerar Descrição da Imagem', 'callback_data': 'Analisar Imagem'}],
+                        [{'text': 'Extrair Texto da Imagem', 'callback_data': 'Rotulo'}]
                     ]
-                    send_message(chat_id, "Escolha uma opção:", buttons)
+                    send_message(chat_id, "O que você deseja fazer com a imagem enviada?", buttons)
                     
                 else:
                     # Se o usuário existir, continue com o fluxo normal
@@ -118,10 +118,12 @@ def lambda_handler(event, context):
                 response_lex = call_lex(chat_id, message)
                 process_lex_response(chat_id, response_lex)
 
-            elif 'voice' in body['message']:
+            elif 'voice' in body['message']:        
                 chat_id = body['message']['chat']['id']
                 file_id = body['message']['voice']['file_id']
+                send_message(chat_id, "Analisando áudio...")
                 audio_text = audio_user(chat_id, file_id)
+               
                 if not audio_text.strip():
                     send_message(chat_id, "O áudio enviado está vazio ou não pôde ser entendido. Por favor, envie um áudio claro.")
                 else:
