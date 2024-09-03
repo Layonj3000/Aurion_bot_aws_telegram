@@ -36,10 +36,7 @@ def lambda_handler(event, context):
                     send_message(chat_id, "Isso pode demorar alguns intantes...")
                     send_message(chat_id, "🔎")
                     rotulo = extract_text_from_image(chat_id)
-                    
-    
-                    
-                    
+            
                     if not rotulo.strip():
                         send_message(chat_id, "Nenhum texto foi encontrado na imagem. Por favor, envie uma imagem com texto legível.")
                     else:
@@ -60,6 +57,10 @@ def lambda_handler(event, context):
                     response_lex = call_lex(chat_id, message)
                     process_lex_response(chat_id, response_lex)
                 elif message == 'Funcionalidades':
+                    #send_message(chat_id, message)
+                    response_lex = call_lex(chat_id, message)
+                    process_lex_response(chat_id, response_lex)
+                elif message == 'Como Usar':
                     #send_message(chat_id, message)
                     response_lex = call_lex(chat_id, message)
                     process_lex_response(chat_id, response_lex)

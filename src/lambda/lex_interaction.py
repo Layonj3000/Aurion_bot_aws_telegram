@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-
 import boto3
 
 from dynamo import delete_user, get_user_state, update_user_state
@@ -39,11 +38,12 @@ def process_lex_response(chat_id, response):
     if intent_name == 'Saudacoes':
         logger.info("Intent Saudacoes recognized.")
         buttons = [
-            [{'text': 'Como Funciona?', 'callback_data': 'Funcionalidades'}],
-            [{'text': 'Analisar Imagem', 'callback_data': 'Analisar Imagem Menu'}],
-            [{'text': 'Procurar Rótulo', 'callback_data': 'Rotulo Menu'}]
+            [{'text': 'Como Usar', 'callback_data': 'Como Usar'}],
+            [{'text': 'Funcionalidades', 'callback_data': 'Funcionalidades'}],
+            [{'text': 'Gerar Descrição da Imagem', 'callback_data': 'Analisar Imagem Menu'}],
+            [{'text': 'Extrair Texto da Imagem', 'callback_data': 'Rotulo Menu'}]
         ]
-        send_message(chat_id, "Escolha uma opção:", buttons)
+        send_message(chat_id, "Como posso ajudar?", buttons)
 
     if intent_name == 'AnalisarTexto':
         update_user_state(chat_id, 'ROTULO')
