@@ -49,4 +49,10 @@ def process_lex_response(chat_id, response):
         update_user_state(chat_id, 'ROTULO')
     if intent_name == 'AnalisarImagem':
         update_user_state(chat_id, 'ANALISAR')
+    if intent_name == 'InstrucoesDeUso':
+        send_message(chat_id, "Após isso, basta enviar a imagem desejada que irei te responder com o que foi pedido")
+    if intent_name == 'Funcionalidades':
+        send_message(chat_id, "Gerar descrições de imagens e extrair texto de imagens.")
+        send_message(chat_id, "Caso tenha dúvidas em como utilizar, você pode clicar, falar ou digitar 'Como Usar'.")
+        
     return intent_name
