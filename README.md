@@ -21,7 +21,31 @@ O bot estará disponível publicamente no Telegram, onde os usuários poderão i
 No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
 
 ## 📂 Estrutura das Pastas
-
+```bash
+  📁 sprints-9-10-pb-aws-abril
+  │
+  ├── 📁 assets
+  │   ├── Arquitetura.png
+  │   └── banner.png
+  │          
+  ├── 📁 src
+  │   │
+  │   └── 📁 chatbot
+  │   │   └── aurion.zip
+  │   │
+  │   ├── 📁 lambda
+  │   │   ├── bedrock.py
+  │   │   ├── dynamo.py
+  │   │   ├── image_processing.py
+  │   │   ├── lambda_function.py
+  │   │   ├── lex_interaction.py
+  │   │   ├── rekognition.py
+  │   │   ├── telegram_interaction.py
+  │   │   ├── textract.py
+  │   │   └── transcribe.py
+  │                                                    
+  └── README.md                                 
+```
 
 ## 💻 Tecnologias
 - AWS Bedrock
