@@ -3,28 +3,49 @@ import json
 
 bedrock = boto3.client('bedrock-runtime')
 
-def generate_image_description(image_labels):
-    image_labels_text = ','.join(image_labels)
-
-    prompt = f"Descreva uma imagem que contém os seguintes elementos (labels) retirados do AWS Rekognition: {image_labels_text}."
-    request_text = f"Faça em português, de forma resumida: {prompt}"
-    
-
+def invoke_bedrock_model(model_id, request_text):
     body = json.dumps({"inputText": request_text})
-
+    
     try:
-        # Invoca o modelo para gerar a resposta
         response = bedrock.invoke_model(
-            modelId='amazon.titan-text-premier-v1:0',
+            modelId=model_id,
             contentType='application/json',
             body=body
         )
-
         response_body = response['body'].read().decode('utf-8')
         result = json.loads(response_body)
-
-        response_text = result['results'][0]['outputText']
-        return response_text
-
+        
+        return result['results'][0]['outputText']
+    
     except Exception as e:
-        return str(e)
+        print(f"Erro ao invocar o modelo Bedrock: {str(e)}")
+        return None
+
+def generate_image_description(image_labels):
+    image_labels_text = ', '.join(image_labels)
+
+    prompt_1 = (
+        f"Gere uma descrição detalhada e clara, em texto corrido de uma imagem que contém "
+        f"os seguintes elementos: {image_labels_text}. A descrição deve ser objetiva e precisa, evitando qualquer "
+        f"tipo de opinião, julgamento de valor, ou interpretação emocional. Limite-se a descrever apenas os "
+        f"elementos visíveis mencionados nos labels, sem adicionar informações ou suposições sobre elementos. Em português."
+    )
+    
+    response_1 = invoke_bedrock_model('amazon.titan-text-premier-v1:0', prompt_1)
+    
+    if not response_1:
+        return "Ocorreu um erro ao gerar a descrição da imagem."
+
+    prompt_2 = (
+        f"Analise esse texto que representa a descrição de uma imagem: {response_1}. "
+        f"Se a descrição fizer sentido, for coerente, de fácil entendimento e possuir elementos que geralmente "
+        f"se correlacionam como {image_labels_text}, responda apenas com 'Sim'. Se houver elementos que normalmente "
+        f"não se associam entre si, ou a combinação parecer incoerente, responda apenas com 'Não'."
+    )
+
+    response_2 = invoke_bedrock_model('amazon.titan-text-premier-v1:0', prompt_2)
+    
+    if response_2 and response_2.strip().lower() == 'sim':
+        return response_1
+    else:
+        return "Desculpe, não consegui analisar essa imagem. Poderia enviar outra, por favor?"
