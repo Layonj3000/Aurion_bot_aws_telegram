@@ -59,7 +59,14 @@ No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
 - Python
 
 ## ❌ Dificuldades
-Tivemos dificuldades principalmente em analisar imagens com o AWS Rekognition, devido à labels inconsistentes que geravam resultados incorretos no AWS Bedrock.
+- Dificuldades com análise de imagens:
+  <p>Tivemos desafios significativos ao trabalhar com a análise de imagens utilizando o AWS Rekognition.</p>
+ 
+- Labels inconsistentes:
+  <p>O principal problema estava relacionado às labels inconsistentes fornecidas pelo serviço.</p>
+ 
+- Resultados incorretos no AWS Bedrock:
+  <p>As inconsistências nas labels resultaram em análises imprecisas, afetando a integração dos dados com o AWS Bedrock.</p>
 
 ## 👨‍💻 Autores
 <div>
