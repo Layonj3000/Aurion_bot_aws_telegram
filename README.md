@@ -14,7 +14,7 @@ Este bot será desenvolvido com o objetivo oferecer uma ferramenta inclusiva par
 O bot estará disponível publicamente no Telegram, onde os usuários poderão interagir de maneira simples e eficiente. Dessa forma, este bot ofecerá uma solução inclusiva e tecnológica para que pessoas cegas possam compreender o conteúdo de imagens de forma acessível. A combinação dos serviços AWS permitirá uma interação fluida e eficaz, com descrições em áudio de alta qualidade e uma experiência de usuário otimizada.
 </p>
 
-## 🏗️ Arquitetura Preliminar do Projeto
+## 🏗️ Arquitetura do Projeto
 ![Imagem|Compass](assets/Arquitetura.png)
 
 ## 🚀 Como utilizar
