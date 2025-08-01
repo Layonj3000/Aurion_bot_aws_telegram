@@ -1,53 +1,18 @@
-<h1 align="center">Bot para auxiliar pessoas com deficiência visual </h1>
-<h2 align="center"> <i>Aurion</i></h2>
+# Aurion: A Visual Assistant Bot for the Visually Impaired 🚀
 
-<h4 align="center"> <i>Avaliação final do programa de bolsas Compass UOL para formação em machine learning para AWS.</i></h4>
+<p align="center"><i>A bot designed to provide an inclusive tool for the visually impaired by describing images.</i></p>
 
-![Imagem|Compass](assets/banner.png)
+![Aurion Banner](assets/BannerAurion.jpg)
 
-## 🌐 Sobre o Projeto
-<p align="justify"> 
-Este bot será desenvolvido com o objetivo oferecer uma ferramenta inclusiva para pessoas cegas, inspirada no movimento <a href="https://mwpt.com.br/criadora-do-projeto-pracegover-incentiva-descricao-de-imagens-na-web/">#ParaCegoVer</a>, que incentiva a descrição de imagens na web. A iniciativa, criada por uma defensora da acessibilidade visual, tem como propósito tornar o conteúdo digital mais acessível para pessoas com deficiência visual, promovendo a inclusão e a equidade. Integrado ao Telegram, o bot permitirá que os usuários enviem imagens para receber descrições detalhadas em áudio ou texto.
-</p>
+## 🌐 About the Project
+This bot was developed to offer an inclusive tool for the blind and visually impaired, inspired by the **#ParaCegoVer** movement, which advocates for image descriptions on the web. The initiative aims to make digital content more accessible, promoting inclusion and equality.
 
-<p align="justify">
-O bot estará disponível publicamente no Telegram, onde os usuários poderão interagir de maneira simples e eficiente. Dessa forma, este bot ofecerá uma solução inclusiva e tecnológica para que pessoas cegas possam compreender o conteúdo de imagens de forma acessível. A combinação dos serviços AWS permitirá uma interação fluida e eficaz, com descrições em áudio de alta qualidade e uma experiência de usuário otimizada.
-</p>
+Integrated with Telegram, the bot allows users to send images and receive detailed descriptions in either audio or text. It provides a seamless and efficient solution for the visually impaired to understand image content, combining various AWS services for a fluid, high-quality user experience.
 
-## 🏗️ Arquitetura do Projeto
-![Imagem|Compass](assets/Arquitetura.png)
+## 🏗️ Project Architecture
+![Project Architecture](assets/Architecture.png)
 
-## 🚀 Como utilizar
-No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
-
-## 📂 Estrutura das Pastas
-```bash
-  📁 sprints-9-10-pb-aws-abril
-  │
-  ├── 📁 assets
-  │   ├── Arquitetura.png
-  │   └── banner.png
-  │          
-  ├── 📁 src
-  │   │
-  │   └── 📁 chatbot
-  │   │   └── aurion.zip
-  │   │
-  │   ├── 📁 lambda
-  │   │   ├── bedrock.py
-  │   │   ├── dynamo.py
-  │   │   ├── image_processing.py
-  │   │   ├── lambda_function.py
-  │   │   ├── lex_interaction.py
-  │   │   ├── rekognition.py
-  │   │   ├── telegram_interaction.py
-  │   │   ├── textract.py
-  │   │   └── transcribe.py
-  │                                                    
-  └── README.md                                 
-```
-
-## 💻 Tecnologias
+## 💻 Technologies Used
 - AWS Bedrock
 - AWS Rekognition
 - AWS Transcribe
@@ -58,17 +23,14 @@ No telegram, busque por ``Aurion, Seu assistente visual`` e inicie a conversa.
 - Telegram
 - Python
 
-## ❌ Dificuldades
-- Dificuldades com análise de imagens:
-  <p>Tivemos desafios significativos ao trabalhar com a análise de imagens utilizando o AWS Rekognition.</p>
- 
-- Labels inconsistentes:
-  <p>O principal problema estava relacionado às labels inconsistentes fornecidas pelo serviço.</p>
- 
-- Resultados incorretos no AWS Bedrock:
-  <p>As inconsistências nas labels resultaram em análises imprecisas, afetando a integração dos dados com o AWS Bedrock.</p>
+## 🚧 Challenges Faced
+Developing this bot presented some significant challenges, primarily related to image analysis and data consistency:
 
-## 👨‍💻 Autores
+* **Inconsistent Image Analysis:** We faced significant challenges when working with image analysis using **AWS Rekognition**.
+* **Inaccurate Labels:** The main problem was related to the inconsistent and sometimes inaccurate labels provided by the service.
+* **Incorrect Results from AWS Bedrock:** These inconsistencies in the labels led to imprecise analyses, which in turn affected data integration with **AWS Bedrock**.
+
+## 👨‍💻 Authors
 <div>
   <table style="margin: 0 auto;">
     <tr>
