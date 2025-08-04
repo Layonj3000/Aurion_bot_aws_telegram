@@ -34,7 +34,7 @@ Developing this bot presented some significant challenges, primarily related to 
 <div>
   <table style="margin: 0 auto;">
     <tr>
-      <td><a href="https://github.com/GabrielAvelarbr"><img loading="lazy" src="https://avatars.githubusercontent.com/u/117688731?v=4" width="115"><br><sub>Gabriel Avelar</sub></a></td>
+      <td><a href="https://github.com/gabrielvavelar"><img loading="lazy" src="https://avatars.githubusercontent.com/u/117688731?v=4" width="115"><br><sub>Gabriel Avelar</sub></a></td>
       <td><a href="https://github.com/JoseJaan"><img loading="lazy" src="https://avatars.githubusercontent.com/u/120669342?v=4" width="115"><br><sub>José Neto</sub></a></td>
       <td><a href="https://github.com/Layonj300"><img loading="lazy" src="https://avatars.githubusercontent.com/u/106559843?v=4" width="115"><br><sub>Layon Reis</sub></a></td>
       <td><a href="https://github.com/LuizFillipe1"><img loading="lazy" src="https://avatars.githubusercontent.com/u/78454639?v=4" width="115"><br><sub>Luiz Fillipe</sub></a></td>
